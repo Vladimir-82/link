@@ -5,12 +5,12 @@
     <title>Title</title>
 </head>
 <body>
-    {% for link in links %}
-        <p> {{ link.author }} </p>
-        <p> {{ link.link }} </p>
-        <p> {{ link.shortlink }} </p>
-        <p> -------------------- </p>
-    {% endfor %}
+{% for link in links %}
+    <p> {{ link.author }} </p>
+    <p> {{ link.link }} </p>
+    <p> {{ link.shortlink }} </p>
+    <p> -------------------- </p>
+{% endfor %}
 
 </body>
 </html>

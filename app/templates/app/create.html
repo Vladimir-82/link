@@ -5,11 +5,17 @@
     <title>Title</title>
 </head>
 <body>
-    <form method="post" action="main">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-
         <input type="submit" value="ADD">
     </form>
+
+    {% for link in links %}
+        <p> {{ link.author }} </p>
+        <p> {{ link.link }} </p>
+        <p> {{ link.shortlink }} </p>
+        <p> -------------------- </p>
+    {% endfor %}
 </body>
 </html>

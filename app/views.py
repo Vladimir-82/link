@@ -5,33 +5,13 @@ from .models import Link
 from .forms import AddForm
 
 
-
-def index(request):
-    links = Link.objects.all()
-    return render(request, 'app/index.html', {'links': links})
-
-
-# class AddCreateView(CreateView):
-#     template_name = 'app/create.html'
-#     form_class = AddForm
-#     success_url = ''
-
-
-
-def linker(request):
-    print(request.POST)
+def create(request):
+    if request.method == 'GET':
+        form = AddForm()
+        return render(request, 'app/create.html', {'form': form})
     if request.method == 'POST':
-        print('post here')
         form = AddForm(request.POST)
         if form.is_valid():
-            print('ffffffffffffffffff')
             form.save()
-
-            return render(request, 'app/index.html')
-
-    else:
-        form = AddForm()
-        context = {'form': form}
-        print('get here')
-        
-        return render(request, 'app/create.html', context)
+        links = Link.objects.all()
+        return render(request, 'app/create.html', {'links': links})
