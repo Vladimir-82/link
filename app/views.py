@@ -13,5 +13,5 @@ def create(request):
         form = AddForm(request.POST)
         if form.is_valid():
             form.save()
-        links = Link.objects.all()
+        links = Link.objects.last()
         return render(request, 'app/create.html', {'links': links})
