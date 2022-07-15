@@ -1,10 +1,12 @@
 import uuid
 
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from .models import Link
 from .forms import AddForm
 
 
+@login_required(login_url='/accounts/login/')
 def create(request):
     if request.method == 'GET':
         form = AddForm()
@@ -14,7 +16,6 @@ def create(request):
         if form.is_valid():
             form.save()
         links = Link.objects.last()
-
         hash = uuid.uuid3(uuid.NAMESPACE_DNS, links.link)
         new_link = hash.__str__()[:8]
         links.shortlink = ''.join(('https://', 'mydomen/', new_link))
