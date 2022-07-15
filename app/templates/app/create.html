@@ -10,8 +10,8 @@
         {{ form.as_p }}
         <input type="submit" value="ADD">
     </form>
-        <p> {{ links.link }} </p>
-        <p> {{ links.shortlink }} </p>
-        <a href="{{ links.shortlink }}" target="_blank"> </a>
+    {% if links.shortlink %}
+        <a href="{{ links.link }}"> {{ links.shortlink }} </a>
+    {% endif %}
 </body>
 </html>
