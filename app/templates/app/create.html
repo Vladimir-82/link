@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Create</title>
 </head>
 <body>
     <form method="post" enctype="multipart/form-data">
@@ -13,5 +13,8 @@
     {% if links.shortlink %}
         <a href="{{ links.link }}"> {{ links.shortlink }} </a>
     {% endif %}
+        <span class="navbar-text">
+            <a href="{% url 'register' %}">Register</a> | <a href="{% url 'login' %}">Login</a>
+        </span>
 </body>
 </html>

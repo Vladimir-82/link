@@ -1,12 +1,17 @@
 import uuid
 
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
+
+from django.contrib import messages
 from .models import Link
-from .forms import AddForm
+from .forms import AddForm, UserRegisterForm, UserLoginForm
+from django.contrib.auth import login, logout
 
 
-@login_required(login_url='/accounts/login/')
+
+
+@login_required
 def create(request):
     if request.method == 'GET':
         form = AddForm()
@@ -22,3 +27,35 @@ def create(request):
         links.save()
         
         return render(request, 'app/create.html', {'links': links})
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, 'Вы успешно зарегистрировались')
+            return redirect('create')
+        else:
+            messages.error(request, 'Ошибка регистрации')
+    else:
+        form = UserRegisterForm()
+    return render(request, 'app/register.html', {"form": form})
+
+
+def user_login(request):
+    if request.method == 'POST':
+        form = UserLoginForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('create')
+    else:
+        form = UserLoginForm()
+    return render(request, 'app/login.html', {"form": form})
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('login')
