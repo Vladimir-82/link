@@ -1,16 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "app/basic.html" %}
+
+{% block title %}Show{% endblock %}
+{% block content %}
 {% for link in links %}
     <p> {{ link.author }} </p>
-    <p> {{ link.link }} </p>
-    <p> {{ link.shortlink }} </p>
-    <p> -------------------- </p>
+    <a href="{{ link.link }}"> {{ link.link }} </a><br>
+    <a href="{{ link.link }}"> {{ link.shortlink }} </a>
+    <p> ----------------------------- </p>
 {% endfor %}
-
-</body>
-</html>
+{% endblock %}

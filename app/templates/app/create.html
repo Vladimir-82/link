@@ -1,24 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Create</title>
-</head>
-<body>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="ADD">
-    </form>
-    {% if links.shortlink %}
-        <a href="{{ links.link }}"> {{ links.shortlink }} </a>
-    {% endif %}<br>
-        <span class="navbar-text">
-            {% if request.user.is_authenticated %}
-            Добро пожаловать, {{ user.username }} | <a href="{% url 'logout' %}">Выход</a>
-            {% else %}
-            <a href="{% url 'register' %}">Register</a> | <a href="{% url 'login' %}">Login</a>
-            {% endif %}
-        </span>
-</body>
-</html>
+{% extends "app/basic.html" %}
+
+{% block title %}Create{% endblock %}
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="ADD">
+</form>
+{% if links.shortlink %}
+    <b>Your shortlink is - </b>
+    <a href="{{ links.link }}"> {{ links.shortlink }} </a>
+{% endif %}
+{% endblock %}
+
+
+
