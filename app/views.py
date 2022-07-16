@@ -1,17 +1,14 @@
 import uuid
 
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-
 from django.contrib import messages
+from django.contrib.auth import login, logout
 from .models import Link
 from .forms import AddForm, UserRegisterForm, UserLoginForm
-from django.contrib.auth import login, logout
 
 
-
-
-@login_required
+# @login_required
 def create(request):
     if request.method == 'GET':
         form = AddForm()
@@ -25,7 +22,7 @@ def create(request):
         new_link = hash.__str__()[:8]
         links.shortlink = ''.join(('https://', 'mydomen/', new_link))
         links.save()
-        
+
         return render(request, 'app/create.html', {'links': links})
 
 
@@ -59,3 +56,10 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('login')
+
+
+@login_required
+def show(request):
+    current_user = request.user.id
+    links = Link.objects.filter(author=current_user)
+    return render(request, 'app/show.html', {"links": links})

@@ -12,9 +12,13 @@
     </form>
     {% if links.shortlink %}
         <a href="{{ links.link }}"> {{ links.shortlink }} </a>
-    {% endif %}
+    {% endif %}<br>
         <span class="navbar-text">
+            {% if request.user.is_authenticated %}
+            Добро пожаловать, {{ user.username }} | <a href="{% url 'logout' %}">Выход</a>
+            {% else %}
             <a href="{% url 'register' %}">Register</a> | <a href="{% url 'login' %}">Login</a>
+            {% endif %}
         </span>
 </body>
 </html>
