@@ -1,7 +1,6 @@
 import uuid
 
 from django.shortcuts import render, redirect
-from django.core.exceptions import PermissionDenied
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from .models import Link
@@ -9,22 +8,24 @@ from .forms import AddForm, UserRegisterForm, UserLoginForm
 
 
 def create(request):
-    if request.user.is_authenticated:
-        if request.method == 'GET':
+    if request.method == 'GET':
+        if request.user.is_authenticated:
             form = AddForm()
             return render(request, 'app/create.html', {'form': form})
-        if request.method == 'POST':
-            form = AddForm(request.POST)
-            if form.is_valid():
-                form.save()
-            links = Link.objects.last()
-            hash = uuid.uuid3(uuid.NAMESPACE_DNS, links.link)
-            new_link = hash.__str__()[:8]
-            links.shortlink = ''.join(('https://', 'mydomen/', new_link))
-            links.save()
-            return render(request, 'app/create.html', {'links': links})
-    else:
-        raise PermissionDenied
+        else:
+            message = 'Только зарегистрированные пользователи могу использовать сервис. Пройдите регистрацию или авторизацию.'
+            return render(request, 'app/create.html', {'message': message})
+    if request.method == 'POST':
+        form = AddForm(request.POST)
+        if form.is_valid():
+            form.save()
+        links = Link.objects.last()
+        hash = uuid.uuid3(uuid.NAMESPACE_DNS, links.link)
+        new_link = hash.__str__()[:8]
+        links.shortlink = ''.join(('https://', 'mydomen/', new_link))
+        links.save()
+        return render(request, 'app/create.html', {'links': links})
+
 
 def register(request):
     if request.method == 'POST':
@@ -60,9 +61,11 @@ def user_logout(request):
 
 
 def show(request):
+    current_user = request.user.id
+    links = Link.objects.filter(author=current_user)
     if request.user.is_authenticated:
-        current_user = request.user.id
-        links = Link.objects.filter(author=current_user)
         return render(request, 'app/show.html', {"links": links})
     else:
-        raise PermissionDenied
+        message = 'Только зарегистрированные пользователи могу использовать сервис. Пройдите регистрацию или авторизацию.'
+        return render(request, 'app/show.html', {'message': message})
+
