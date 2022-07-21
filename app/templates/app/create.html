@@ -9,7 +9,7 @@
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="ADD">
+    <input type="submit" value="Сократить ссылку">
 </form>
 {% endif %}
 {% if links.shortlink %}
