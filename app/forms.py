@@ -25,4 +25,4 @@ class UserRegisterForm(UserCreationForm):
 class AddForm(forms.ModelForm):
     class Meta:
         model = Link
-        fields = ('author', 'link')
+        fields = ('author', 'link',)
