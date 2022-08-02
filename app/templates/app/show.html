@@ -8,8 +8,8 @@
 {% else %}
 {% for link in links %}
     <p> {{ link.author }} </p>
-    <a href="{{ link.link }}"> {{ link.link }} </a><br>
-    <a href="{{ link.link }}"> {{ link.shortlink }} </a>
+    Длинная ссылка - <a href="{{ link.link }}"> {{ link.link }} </a><br>
+    Сокращенная ссылка - <a href="{{ link.link }}"> {{ link.shortlink }} </a>
     <p> ----------------------------- </p>
 {% endfor %}
 {% endif %}
