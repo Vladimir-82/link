@@ -31,9 +31,9 @@ def create(request):
             link = Link.objects.last()
             link.shortlink = ''.join(('https://', domain, '/', new_link))
 
-            # current_user = User.objects.get()
-            # current_user = Link.author_id
-            # print(current_user)
+            # current_user = Link.objects.get(author_id=1)
+
+            link.author = Link.objects.get(author_id=1)
 
 
             link.save()
