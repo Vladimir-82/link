@@ -12,9 +12,9 @@
     <input type="submit" value="Сократить ссылку">
 </form>
 {% endif %}
-{% if links.shortlink %}
+{% if link.shortlink %}
     <b>Your shortlink is - </b>
-    <a href="{{ links.link }}"> {{ links.shortlink }} </a>
+    <a href="{{ link.link }}"> {{ link.shortlink }} </a>
 {% endif %}
 {% endblock %}
 
