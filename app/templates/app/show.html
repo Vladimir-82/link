@@ -7,10 +7,9 @@
     <b>{{ message }}</b>
 {% else %}
 {% for link in links %}
-    <p> {{ link.author }} </p>
     Длинная ссылка - <a href="{{ link.link }}"> {{ link.link }} </a><br>
     Сокращенная ссылка - <a href="{{ link.link }}"> {{ link.shortlink }} </a>
-    <p> ----------------------------- </p>
+    <p> ----------------------------------------------------------------------------------------- </p>
 {% endfor %}
 {% endif %}
 {% endblock %}

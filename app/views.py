@@ -21,24 +21,15 @@ def create(request):
     if request.method == 'POST':
         form = AddForm(request.POST)
         if form.is_valid():
-            # # u = request.user
-            # file = request.POST
-            # print(file)
             hash = uuid.uuid3(uuid.NAMESPACE_DNS, request.POST['link'])
             new_link = hash.__str__()[:8]
             domain = request.get_host()
             form.save()
             link = Link.objects.last()
             link.shortlink = ''.join(('https://', domain, '/', new_link))
-
-            # current_user = Link.objects.get(author_id=1)
-
-            link.author = Link.objects.get(author_id=1)
-
-
+            link.author_id = request.user.id
             link.save()
             return render(request, 'app/create.html', {'link': link})
-
 
 def register(request):
     '''
