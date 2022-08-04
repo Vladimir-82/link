@@ -13,8 +13,8 @@
 </form>
 {% endif %}
 {% if link.shortlink %}
-    <b>Your shortlink is - </b>
-    <a href="{{ link.link }}"> {{ link.shortlink }} </a>
+    Длинная ссылка - <a href="{{ link.link }}"> {{ link.link }} </a><br>
+    Сокращенная ссылка - <a href="{{ link.link }}"> {{ link.shortlink }} </a>
 {% endif %}
 {% endblock %}
 
