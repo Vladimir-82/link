@@ -21,14 +21,14 @@ def create(request):
     if request.method == 'POST':
         form = AddForm(request.POST)
         if form.is_valid():
-            hash = uuid.uuid3(uuid.NAMESPACE_DNS, request.POST['link'])
+            data = form.cleaned_data
+            hash = uuid.uuid3(uuid.NAMESPACE_DNS, data['link'])
             new_link = hash.__str__()[:8]
             domain = request.get_host()
-            form.save()
-            link = Link.objects.last()
-            link.shortlink = ''.join(('https://', domain, '/', new_link))
-            link.author_id = request.user.id
-            link.save()
+            short_link = ''.join(('https://', domain, '/', new_link))
+            author_id = request.user.id
+            link = Link.objects.create(author_id=author_id, link=data['link'], short_link=short_link)
+
             return render(request, 'app/create.html', {'link': link})
 
 def register(request):

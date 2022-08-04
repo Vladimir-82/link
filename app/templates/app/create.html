@@ -12,9 +12,9 @@
     <button type="submit" class="btn btn-primary btn-lg px-4 gap-3">Сократить ссылку</button>
 </form>
 {% endif %}
-{% if link.shortlink %}
+{% if link.short_link %}
     Длинная ссылка - <a href="{{ link.link }}"> {{ link.link }} </a><br>
-    Сокращенная ссылка - <a href="{{ link.link }}"> {{ link.shortlink }} </a>
+    Сокращенная ссылка - <a href="{{ link.link }}"> {{ link.short_link }} </a>
 {% endif %}
 {% endblock %}
 
