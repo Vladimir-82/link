@@ -9,4 +9,4 @@ class Link(models.Model):
 
 
     def __str__(self):
-        return self.author
+        return self.short_link

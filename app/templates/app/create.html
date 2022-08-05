@@ -13,6 +13,9 @@
 </form>
 {% endif %}
 {% if link.short_link %}
+    <script type="text/javascript">
+        jQuery("#btn1").remove();
+    </script>
     Длинная ссылка - <a href="{{ link.link }}"> {{ link.link }} </a><br>
     Сокращенная ссылка - <a href="{{ link.link }}"> {{ link.short_link }} </a>
 {% endif %}
