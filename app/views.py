@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth import login, logout
 from .models import Link
 from .forms import AddForm, UserRegisterForm, UserLoginForm
-from .utils import message
+from .utils import *
 
 
 def create(request):
@@ -17,7 +17,7 @@ def create(request):
             form = AddForm()
             return render(request, 'app/create.html', {'form': form})
         else:
-            return render(request, 'app/create.html', {'message': message()})
+            return render(request, 'app/create.html', {'message': Message.unauthorized})
     if request.method == 'POST':
         form = AddForm(request.POST)
         if form.is_valid():
@@ -40,10 +40,10 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            messages.success(request, 'Вы успешно зарегистрировались')
+            messages.success(request, Message.success_register)
             return redirect('create')
         else:
-            messages.error(request, 'Ошибка регистрации')
+            messages.error(request, Message.error_register)
     else:
         form = UserRegisterForm()
     return render(request, 'app/register.html', {"form": form})
@@ -82,5 +82,5 @@ def show(request):
     if request.user.is_authenticated:
         return render(request, 'app/show.html', {"links": links})
     else:
-        return render(request, 'app/show.html', {'message': message()})
+        return render(request, 'app/show.html', {'message': Message.unauthorized})
 
