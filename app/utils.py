@@ -6,3 +6,4 @@ class Message:
     )
     success_register = 'Вы успешно зарегистрировались'
     error_register = 'Ошибка регистрации'
+    link_already_exist = 'Ссылка уже сокращалась Вами!'
