@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,14 +21,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-25!vqt&vy-ii89ugv#o)zpp31qv0h%i+8g_brm3zv9_q+o8%$2'
+SECRET_KEY = 'django-insecure-25!vqt&vy-ii89ugv#o)zpp31qv0h%i+8g_brm3zv9_q+o8%$2'
 
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-25!vqt&vy-ii89ugv#o)zpp31qv0h%i+8g_brm3zv9_q+o8%$2')
-# SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = False
-DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
 
-ALLOWED_HOSTS = []
+DEBUG = True
+
+
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -79,12 +79,19 @@ WSGI_APPLICATION = 'link.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+MAX_CONN_AGE = 600
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+if "DATABASE_URL" in os.environ:
+    # Configure Django for DATABASE_URL environment variable.
+    DATABASES["default"] = dj_database_url.config(
+        conn_max_age=MAX_CONN_AGE, ssl_require=True)
 
 
 # Password validation
@@ -128,10 +135,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
 
 
 
