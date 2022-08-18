@@ -60,8 +60,7 @@ ROOT_URLCONF = 'link.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -150,9 +149,7 @@ class HerokuDiscoverRunner(DiscoverRunner):
         return super(HerokuDiscoverRunner, self).setup_databases(**kwargs)
 
 
-# Use HerokuDiscoverRunner on Heroku CI
-if "CI" in os.environ:
-    TEST_RUNNER = "link.settings.HerokuDiscoverRunner"
+
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
