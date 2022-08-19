@@ -83,7 +83,10 @@ def show(request):
     current_user = request.user.id
     links = Link.objects.filter(author=current_user)
     if request.user.is_authenticated:
-        return render(request, 'app/show.html', {"links": links})
+        if links:
+            return render(request, 'app/show.html', {"links": links})
+        else:
+            return render(request, 'app/show.html', {'message': Message.does_not_have_list})
     else:
         return render(request, 'app/show.html', {'message': Message.unauthorized})
 
