@@ -28,9 +28,9 @@ def create(request):
             hash = uuid.uuid3(uuid.NAMESPACE_DNS, data['link'])
             new_link = hash.__str__()[:8]
             domain = request.get_host()
-            short_link = ''.join(('https://', domain, '/', new_link))
+            shortlink = ''.join(('https://', domain, '/', new_link))
 
-            link = Link.objects.create(author_id=author_id, link=data['link'], short_link=short_link)
+            link = Link.objects.create(author_id=author_id, link=data['link'], shortlink=shortlink)
 
             return render(request, 'app/create.html', {'link': link})
 

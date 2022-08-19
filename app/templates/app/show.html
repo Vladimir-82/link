@@ -8,7 +8,7 @@
 {% else %}
 {% for link in links %}
     Длинная ссылка - <a href="{{ link.link }}"> {{ link.link }} </a><br>
-    Сокращенная ссылка - <a href="{{ link.link }}"> {{ link.short_link }} </a>
+    Сокращенная ссылка - <a href="{{ link.link }}"> {{ link.shortlink }} </a>
     <p> ----------------------------------------------------------------------------------------- </p>
 {% endfor %}
 {% endif %}
