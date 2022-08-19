@@ -23,7 +23,8 @@ def create(request):
         if form.is_valid():
             data = form.cleaned_data
             author_id = request.user.id
-            if Link.objects.filter(author=author_id, link=data['link']):
+            repeat = Link.objects.filter(author=author_id, link=data['link'])
+            if repeat:
                 return render(request, 'app/create.html', {'message': Message.link_already_exist})
             hash = uuid.uuid3(uuid.NAMESPACE_DNS, data['link'])
             new_link = hash.__str__()[:8]
