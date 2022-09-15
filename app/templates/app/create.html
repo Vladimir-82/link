@@ -2,9 +2,13 @@
 
 {% block title %}Link cutter{% endblock %}
 {% block content %}
-
 {% if message %}
-    <b>{{ message }}</b>
+    <div id="inner">
+        <b>{{ message }}</b>
+        <script type="text/javascript">
+            $("#inner").css("color", "red")
+        </script>
+    </div>
 {% else %}
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
