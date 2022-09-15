@@ -17,7 +17,9 @@ def create(request):
             form = AddForm()
             return render(request, 'app/create.html', {'form': form})
         else:
-            return render(request, 'app/create.html', {'message': Message.unauthorized})
+            return render(request, 'app/create.html',
+                          {'message': Message.unauthorized
+                           })
     if request.method == 'POST':
         form = AddForm(request.POST)
         if form.is_valid():
@@ -25,13 +27,18 @@ def create(request):
             author_id = request.user.id
             repeat = Link.objects.filter(author=author_id, link=data['link'])
             if repeat:
-                return render(request, 'app/create.html', {'message': Message.link_already_exist})
+                return render(request, 'app/create.html',
+                              {'message': Message.link_already_exist
+                               })
             hash = uuid.uuid3(uuid.NAMESPACE_DNS, data['link'])
             new_link = hash.__str__()[:8]
             domain = request.get_host()
             shortlink = ''.join(('https://', domain, '/', new_link))
 
-            link = Link.objects.create(author_id=author_id, link=data['link'], shortlink=shortlink)
+            link = Link.objects.create(author_id=author_id,
+                                       link=data['link'],
+                                       shortlink=shortlink
+                                       )
 
             return render(request, 'app/create.html', {'link': link})
 
@@ -87,7 +94,11 @@ def show(request):
         if links:
             return render(request, 'app/show.html', {"links": links})
         else:
-            return render(request, 'app/show.html', {'message': Message.does_not_have_list})
+            return render(request, 'app/show.html',
+                          {'message': Message.does_not_have_list
+                           })
     else:
-        return render(request, 'app/show.html', {'message': Message.unauthorized})
+        return render(request, 'app/show.html',
+                      {'message': Message.unauthorized
+                       })
 
