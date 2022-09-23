@@ -1,8 +1,7 @@
 {% extends "app/basic.html" %}
-
 {% block title %}Login{% endblock %}
 {% block content %}
-<div id="inner">
+<div class="inner">
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}

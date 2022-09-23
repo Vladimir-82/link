@@ -1,15 +1,17 @@
 {% extends "app/basic.html" %}
-
 {% block title %}Show{% endblock %}
 {% block content %}
-
 {% if message %}
-    <b>{{ message }}</b>
+    <div class="message">
+        <b>{{ message }}</b>
+    </div>
 {% else %}
-{% for link in links %}
-    Длинная ссылка - <a href="{{ link.link }}"> {{ link.link }} </a><br>
-    Сокращенная ссылка - <a href="{{ link.link }}"> {{ link.shortlink }} </a>
-    <p> ----------------------------------------------------------------------------------------- </p>
-{% endfor %}
+    <div class="centred">
+        {% for link in links %}
+            Длинная ссылка - <a href="{{ link.link }}"> {{ link.link }} </a><br>
+            Сокращенная ссылка - <a href="{{ link.link }}"> {{ link.shortlink }} </a>
+            <p> ----------------------------------------------------------------------------------------- </p>
+        {% endfor %}
+    </div>
 {% endif %}
 {% endblock %}

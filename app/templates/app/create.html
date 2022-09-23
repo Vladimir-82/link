@@ -3,18 +3,16 @@
 {% block title %}Link cutter{% endblock %}
 {% block content %}
 {% if message %}
-    <div id="inner">
+    <div class="message">
         <b>{{ message }}</b>
-        <script type="text/javascript">
-            $("#inner").css("color", "red")
-        </script>
     </div>
 {% else %}
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" id='btn1'  class="btn btn-primary btn-lg px-4 gap-3">Сократить ссылку</button>
-</form>
+    <div class="centred">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" id='btn1'  class="btn btn-primary btn-lg px-4 gap-3">Сократить ссылку</button>
+        </form>
 {% endif %}
 {% if link.shortlink %}
     <script type="text/javascript">
@@ -22,6 +20,7 @@
     </script>
     Длинная ссылка - <a href="{{ link.link }}"> {{ link.link }} </a><br>
     Сокращенная ссылка - <a href="{{ link.link }}"> {{ link.shortlink }} </a>
+    </div>
 {% endif %}
 {% endblock %}
 
