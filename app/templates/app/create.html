@@ -4,21 +4,25 @@
 {% block content %}
 
 {% if message %}
-    <b>{{ message }}</b>
+    <div class="warning">
+        <b>{{ message }}</b>
+    </div>
 {% else %}
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" id='btn1'  class="btn btn-primary btn-lg px-4 gap-3">Сократить ссылку</button>
-</form>
-{% endif %}
-{% if link.short_link %}
-    <script type="text/javascript">
-        jQuery("#btn1").remove();
-    </script>
-    Длинная ссылка - <a href="{{ link.link }}"> {{ link.link }} </a><br>
-    Сокращенная ссылка - <a href="{{ link.link }}"> {{ link.short_link }} </a>
-{% endif %}
+<div id="inner">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" id='btn1'  class="btn btn-primary btn-lg px-4 gap-3">Сократить ссылку</button>
+    </form>
+    {% endif %}
+    {% if link.short_link %}
+        <script type="text/javascript">
+            jQuery("#btn1").remove();
+        </script>
+        Длинная ссылка - <a href="{{ link.link }}"> {{ link.link }} </a><br>
+        Сокращенная ссылка - <a href="{{ link.link }}"> {{ link.short_link }} </a>
+    {% endif %}
+</div>
 {% endblock %}
 
 
