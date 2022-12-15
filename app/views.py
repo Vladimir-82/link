@@ -77,8 +77,11 @@ def show(request):
     '''
     Shows a list of full and shortened links for registered users
     '''
-    current_user = request.user.id
-    links = Link.objects.filter(author=current_user)
+    # current_user = request.user.id
+    current_user = request.user
+    print(current_user)
+    # links = Link.objects.filter(author=current_user)
+    links = current_user.link_set.all()
     if request.user.is_authenticated:
         return render(request, 'app/show.html', {"links": links})
     else:
